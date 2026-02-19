@@ -1,11 +1,11 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import '../../../core/constant/functions/navigation.dart';
-import '../../../core/constant/manager/text_manager.dart';
 import '../../../core/constant/manager/image_manager.dart';
-import '../../../core/main/widgets/main_button.dart';
+import '../../../core/widget/main_button.dart';
 import '../on_boarding/screen/on_boarding.dart';
-import '../../../core/main/widgets/custom_animated_toggle_switch_lang.dart';
-import '../../../core/main/widgets/custom_animated_toggle_switch_theme.dart';
+import '../../../core/widget/custom_animated_toggle_switch_lang.dart';
+import '../../../core/widget/custom_animated_toggle_switch_theme.dart';
 import 'package:flutter/material.dart';
 
 class Start extends StatelessWidget {
@@ -14,6 +14,7 @@ class Start extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final localization = AppLocalizations.of(context)!;
     final bool darkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
@@ -29,12 +30,12 @@ class Start extends StatelessWidget {
                   children: [
                     _buildLogo(),
                     _buildImage(darkTheme),
-                    _buildTitleAndBody(textTheme),
-                    _buildLangAndTheme(context),
+                    _buildTitleAndBody(textTheme, localization),
+                    _buildLangAndTheme(context, localization),
                   ],
                 ),
               ),
-              _buildButton(context),
+              _buildButton(context, localization),
             ],
           ),
         ),
@@ -42,22 +43,25 @@ class Start extends StatelessWidget {
     );
   }
 
-  MainButton _buildButton(BuildContext context) {
+  MainButton _buildButton(BuildContext context, AppLocalizations localization) {
     return MainButton(
       onPressed: () => pushReplacement(context, OnBoarding()),
-      text: TextManager.letsStart,
+      text: localization.letsStart,
     );
   }
 
-  Column _buildTitleAndBody(TextTheme textTheme) {
+  Column _buildTitleAndBody(
+    TextTheme textTheme,
+    AppLocalizations localization,
+  ) {
     return Column(
       spacing: 20,
       children: [
         Text(
-          TextManager.starTilte,
+          localization.starTilte,
           style: textTheme.titleMedium!.copyWith(color: ColorManager.primary),
         ),
-        Text(TextManager.startBody, style: textTheme.headlineSmall),
+        Text(localization.startBody, style: textTheme.headlineSmall),
       ],
     );
   }
@@ -73,7 +77,10 @@ class Start extends StatelessWidget {
   Center _buildLogo() =>
       Center(child: Image.asset(ImageManager.onBoardingLogo));
 
-  Column _buildLangAndTheme(BuildContext context) {
+  Column _buildLangAndTheme(
+    BuildContext context,
+    AppLocalizations localization,
+  ) {
     final style = Theme.of(
       context,
     ).textTheme.titleSmall!.copyWith(color: ColorManager.primary);
@@ -82,14 +89,14 @@ class Start extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(TextManager.language, style: style),
+            Text(localization.language, style: style),
             Spacer(),
             CustomAnimatedToggleSwitchLang(),
           ],
         ),
         Row(
           children: [
-            Text(TextManager.theme, style: style),
+            Text(localization.theme, style: style),
             Spacer(),
             CustomAnimatedToggleSwitchTheme(),
           ],

@@ -1,5 +1,6 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:flutter/widgets.dart';
 import '../../../../core/constant/manager/image_manager.dart';
-import '../../../../core/constant/manager/text_manager.dart';
 
 class OnBoardingModel {
   final String title;
@@ -13,21 +14,23 @@ class OnBoardingModel {
   });
 }
 
-
-List<OnBoardingModel> onBoardingModel = [
-  OnBoardingModel(
-    title: TextManager.title1,
-    body: TextManager.body1,
-    imagePath:ImageManager.onBoarding1
-  ),
-  OnBoardingModel(
-    title: TextManager.title2,
-    body: TextManager.body2,
-    imagePath: ImageManager.onBoardingLight2
-  ),
-  OnBoardingModel(
-    title: TextManager.title3,
-    body: TextManager.body3,
-    imagePath: ImageManager.onBoardingLight3
-  ),
-];
+List<OnBoardingModel> getOnBoardingModel(BuildContext context) {
+  final localization = AppLocalizations.of(context)!;
+  return [
+    OnBoardingModel(
+      title: localization.title1,
+      body: localization.body1,
+      imagePath: ImageManager.onBoarding1,
+    ),
+    OnBoardingModel(
+      title: localization.title2,
+      body: localization.body2,
+      imagePath: ImageManager.onBoardingLight2,
+    ),
+    OnBoardingModel(
+      title: localization.title3,
+      body: localization.body3,
+      imagePath: ImageManager.onBoardingLight3,
+    ),
+  ];
+}

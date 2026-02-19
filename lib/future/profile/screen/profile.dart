@@ -1,6 +1,7 @@
+import 'package:evently/future/profile/widget/selected_language.dart';
 import '../widget/profile_button.dart';
 import '../widget/profile_app_bar.dart';
-import '../widget/select_lang_and_theme.dart';
+import '../widget/select_theme.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -20,28 +21,24 @@ class Profile extends StatelessWidget {
               child: Column(
                 spacing: 10,
                 children: [
-                  SelectLangAndTheme(
-                    item1: 'Arabic',
-                    item2: 'English',
-                    type: 'Language',
-                  ),
-                  SelectLangAndTheme(
-                    item1: 'Light',
-                    item2: 'Dark',
-                    type: 'Theme',
-                  ),
+                  SelectedTheme(),
+                  SelectedLanguage(),
                   Spacer(),
-                  SafeArea(
-                    top: false,
-                    minimum: EdgeInsets.only(bottom: 150),
-                    child: ProfileButton(),
-                  ),
+                  _buildLogoutButton(),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  SafeArea _buildLogoutButton() {
+    return SafeArea(
+      top: false,
+      minimum: EdgeInsets.only(bottom: 150),
+      child: LogoutButton(),
     );
   }
 }

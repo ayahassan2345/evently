@@ -1,7 +1,7 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../../core/constant/manager/icon_manager.dart';
 import '../../../core/constant/manager/color_manager.dart';
-import '../../../core/constant/manager/text_manager.dart';
-import '../../../core/main/widgets/choose_event_location.dart';
+import '../../../core/widget/choose_event_location.dart';
 import 'package:flutter/material.dart';
 
 class EventDate extends StatelessWidget {
@@ -10,6 +10,7 @@ class EventDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+     final localization = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       width: double.infinity,
@@ -25,12 +26,12 @@ class EventDate extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                TextManager.date,
+                localization.date,
                 style: textTheme.headlineSmall!.copyWith(
                   color: ColorManager.primary,
                 ),
               ),
-              Text(TextManager.time, style: textTheme.headlineSmall),
+              Text(localization.time, style: textTheme.headlineSmall),
             ],
           ),
         ],

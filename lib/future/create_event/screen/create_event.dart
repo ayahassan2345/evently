@@ -1,12 +1,12 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../../core/constant/manager/icon_manager.dart';
 import '../../../core/constant/manager/color_manager.dart';
-import '../../../core/constant/manager/text_manager.dart';
-import '../../../core/main/widgets/main_button.dart';
-import '../../../core/main/widgets/main_text_field.dart';
+import '../../../core/widget/main_button.dart';
+import '../../../core/widget/main_text_field.dart';
 import '../widget/event_date_and_time.dart';
-import '../../../core/main/widgets/choose_event_location.dart';
+import '../../../core/widget/choose_event_location.dart';
 import '../../../core/constant/manager/image_manager.dart';
-import '../../../core/main/widgets/categories.dart';
+import '../../../core/widget/categories.dart';
 import 'package:flutter/material.dart';
 
 class CreateEvent extends StatelessWidget {
@@ -14,8 +14,9 @@ class CreateEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(TextManager.createEvent)),
+      appBar: AppBar(title: Text(localization.createEvent)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
         child: SingleChildScrollView(
@@ -25,11 +26,14 @@ class CreateEvent extends StatelessWidget {
             children: [
               _buildCreateEventImage(),
               _buildCategories(context),
-              _buildEventTextFormField(context),
-              _buildEventDateAndTime(),
-              Text(TextManager.location, style: Theme.of(context).textTheme.headlineSmall),
-              ChooseEventLocation(location: TextManager.chooseLocation),
-              MainButton(text: TextManager.createEvent, onPressed: () {}),
+              _buildEventTextFormField(context, localization),
+              _buildEventDateAndTime(localization),
+              Text(
+                localization.location,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              ChooseEventLocation(location: localization.chooseLocation),
+              MainButton(text: localization.createEvent, onPressed: () {}),
             ],
           ),
         ),
@@ -56,36 +60,39 @@ class CreateEvent extends StatelessWidget {
     );
   }
 
-  Column _buildEventDateAndTime() {
+  Column _buildEventDateAndTime(AppLocalizations localization) {
     return Column(
       children: [
         EventDateAndTime(
-          dataAndTime: TextManager.eventData,
-          chooseDateAndTime: TextManager.chooseDate,
+          dataAndTime: localization.eventData,
+          chooseDateAndTime: localization.chooseDate,
           icon: IconManager.calendarMonth,
         ),
         EventDateAndTime(
-          dataAndTime: TextManager.eventTime,
-          chooseDateAndTime: TextManager.chooseTime,
+          dataAndTime: localization.eventTime,
+          chooseDateAndTime: localization.chooseTime,
           icon: IconManager.timerOutlined,
         ),
       ],
     );
   }
 
-  Column _buildEventTextFormField(BuildContext context) {
+  Column _buildEventTextFormField(
+    BuildContext context,
+    AppLocalizations localization,
+  ) {
     final textTheme = Theme.of(context).textTheme.headlineSmall;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 10,
       children: [
-        Text(TextManager.title, style: textTheme),
+        Text(localization.title, style: textTheme),
         MainTextField(
-          hint: TextManager.eventTitle,
+          hint: localization.eventTitle,
           prefixIcon: ImageIconManager.editNote,
         ),
-        Text(TextManager.description, style: textTheme),
-        MainTextField(hint: TextManager.eventDescription, maxLines: 4),
+        Text(localization.description, style: textTheme),
+        MainTextField(hint: localization.eventDescription, maxLines: 4),
       ],
     );
   }

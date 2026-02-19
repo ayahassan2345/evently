@@ -1,10 +1,10 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../core/constant/manager/color_manager.dart';
-import '../../core/constant/manager/text_manager.dart';
 import 'widget/custom_card_detail.dart';
 import 'widget/custom_map.dart';
 import 'widget/description.dart';
 import '../../core/constant/manager/image_manager.dart';
-import '../../core/main/widgets/choose_event_location.dart';
+import '../../core/widget/choose_event_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,8 +14,9 @@ class EventDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final localization = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: _buildAppBar(textTheme),
+      appBar: _buildAppBar(textTheme, localization),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -24,9 +25,9 @@ class EventDetail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildEventDetailsImage(),
-              _buildEventDetailsTitle(textTheme),
+              _buildEventDetailsTitle(textTheme, localization),
               EventDate(),
-              ChooseEventLocation(location: TextManager.userLocation),
+              ChooseEventLocation(location: localization.userLocation),
               CustomMap(),
               Description(),
             ],
@@ -36,9 +37,12 @@ class EventDetail extends StatelessWidget {
     );
   }
 
-  Text _buildEventDetailsTitle(TextTheme textTheme) {
+  Text _buildEventDetailsTitle(
+    TextTheme textTheme,
+    AppLocalizations localization,
+  ) {
     return Text(
-      TextManager.event,
+      localization.event,
       style: textTheme.titleSmall!.copyWith(color: ColorManager.primary),
     );
   }
@@ -50,9 +54,9 @@ class EventDetail extends StatelessWidget {
     );
   }
 
-  AppBar _buildAppBar(TextTheme textTheme) {
+  AppBar _buildAppBar(TextTheme textTheme, AppLocalizations localization) {
     return AppBar(
-      title: Text(TextManager.eventDetails),
+      title: Text(localization.eventDetails),
       actions: [
         SvgPicture.asset(ImageIconManager.edit),
         SizedBox(width: 10),

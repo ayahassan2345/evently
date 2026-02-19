@@ -1,4 +1,4 @@
-import '../../../core/main/widgets/event_cart.dart';
+import '../../../core/widget/event_cart.dart';
 import '../widget/search_text_form_field.dart';
 import 'package:flutter/material.dart';
 

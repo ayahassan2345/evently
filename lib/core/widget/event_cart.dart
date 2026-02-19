@@ -1,42 +1,43 @@
-import '../../constant/manager/color_manager.dart';
-import '../../constant/manager/image_manager.dart';
-import '../../../future/home/model/cart_model.dart';
+import 'package:evently/future/home/cubit/event_cart_cubit.dart';
+import 'package:evently/future/home/cubit/event_cart_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../constant/manager/color_manager.dart';
+import '../constant/manager/image_manager.dart';
+import '../../future/home/model/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class EventCart extends StatefulWidget {
+class EventCart extends StatelessWidget {
   const EventCart({super.key});
-
-  @override
-  State<EventCart> createState() => _EventCartState();
-}
-
-class _EventCartState extends State<EventCart> {
-  List<int> allSelectedIndex = [];
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(bottom: 120),
-              itemCount: cartModel.length,
-              itemBuilder: (context, index) {
-                return _buildHomeCart(textTheme, index);
-              },
-            ),
-          ],
+    return BlocProvider(
+      create: (context) {
+        return EventCartCubit();
+      },
+      child: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(bottom: 120),
+                itemCount: getCartModel(context).length,
+                itemBuilder: (context, index) {
+                  return _buildHomeCart(textTheme, index, context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildHomeCart(TextTheme textTheme, int index) {
-    final model = cartModel[index];
+  Widget _buildHomeCart(TextTheme textTheme, int index, BuildContext context) {
+    final model = getCartModel(context)[index];
     final DecorationImage image = DecorationImage(
       image: AssetImage(model.cartImage),
       fit: BoxFit.fitWidth,
@@ -58,16 +59,16 @@ class _EventCartState extends State<EventCart> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildCartDate(textTheme, index),
-            _buildCartTitle(textTheme, index),
+            _buildCartDate(textTheme, index, context),
+            _buildCartTitle(textTheme, index, context),
           ],
         ),
       ),
     );
   }
 
-  Card _buildCartTitle(TextTheme textTheme, int index) {
-    final model = cartModel[index];
+  Card _buildCartTitle(TextTheme textTheme, int index, BuildContext context) {
+    final model = getCartModel(context)[index];
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       clipBehavior: Clip.antiAlias,
@@ -83,22 +84,23 @@ class _EventCartState extends State<EventCart> {
               Expanded(
                 child: Text(model.carttitle, style: textTheme.bodyLarge),
               ),
-              IconButton(
-                onPressed: () {
-                  allSelectedIndex.contains(index)
-                      ? allSelectedIndex.remove(index)
-                      : allSelectedIndex.add(index);
-                  setState(() {});
+              BlocBuilder<EventCartCubit, EventCartState>(
+                builder: (context, state) {
+                  final readCubit = context.read<EventCartCubit>();
+                  final indexExist = state.allSelectedIndex.contains(index);
+                  return IconButton(
+                    onPressed: readCubit.onFavourateClicked(index),
+                    icon: SvgPicture.asset(
+                      indexExist
+                          ? ImageIconManager.selectedLove
+                          : ImageIconManager.unselectedLove,
+                      colorFilter: ColorFilter.mode(
+                        ColorManager.primary,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  );
                 },
-                icon: SvgPicture.asset(
-                  allSelectedIndex.contains(index)
-                      ? ImageIconManager.selectedLove
-                      : ImageIconManager.unselectedLove,
-                  colorFilter: ColorFilter.mode(
-                    ColorManager.primary,
-                    BlendMode.srcIn,
-                  ),
-                ),
               ),
             ],
           ),
@@ -107,8 +109,12 @@ class _EventCartState extends State<EventCart> {
     );
   }
 
-  Container _buildCartDate(TextTheme textTheme, int index) {
-    final model = cartModel[index];
+  Container _buildCartDate(
+    TextTheme textTheme,
+    int index,
+    BuildContext context,
+  ) {
+    final model = getCartModel(context)[index];
     final BoxDecoration decoration = BoxDecoration(
       color: Theme.of(context).colorScheme.primary,
       borderRadius: BorderRadius.circular(8),

@@ -38,9 +38,9 @@ class CategoriesState extends State<Categories> {
         separatorBuilder: (context, index) {
           return SizedBox(width: 10);
         },
-        itemCount: categoriesModel.length,
+        itemCount: getCategoriesModel(context: context).length,
         itemBuilder: (context, index) {
-          final model = categoriesModel[index];
+          final model = getCategoriesModel(context: context)[index];
           return _buildCategories(index, model);
         },
       ),

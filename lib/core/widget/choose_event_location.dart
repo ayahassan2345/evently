@@ -1,5 +1,5 @@
-import '../../constant/manager/icon_manager.dart';
-import '../../constant/manager/color_manager.dart';
+import '../constant/manager/icon_manager.dart';
+import '../constant/manager/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class ChooseEventLocation extends StatelessWidget {

@@ -7,8 +7,7 @@ ColorScheme colorSchemeLight = ColorScheme.light(
   secondary: ColorManager.primary,
   surface: ColorManager.white,
   inverseSurface: ColorManager.primary,
-  onSurface: ColorManager.primary,
-  background: ColorManager.grey, //image icon txt field prefix
+  onSurface: ColorManager.primary, //image icon txt field prefix
 );
 ColorScheme colorSchemeDark = ColorScheme.dark(
   primary: ColorManager.dark,
@@ -17,5 +16,4 @@ ColorScheme colorSchemeDark = ColorScheme.dark(
   surface: ColorManager.primary,
   inverseSurface: ColorManager.white,
   onSurface: ColorManager.dark,
-  background: ColorManager.light,
 );

@@ -1,8 +1,8 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../../core/constant/manager/icon_manager.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import '../../../core/constant/manager/image_manager.dart';
-import '../../../core/constant/manager/text_manager.dart';
-import '../../../core/main/widgets/categories.dart';
+import '../../../core/widget/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +12,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final localization = AppLocalizations.of(context)!;
     final BoxDecoration decoration = BoxDecoration(
       color: Theme.of(context).colorScheme.secondary,
       borderRadius: BorderRadius.only(
@@ -34,9 +35,12 @@ class HomeAppBar extends StatelessWidget {
               Column(
                 spacing: 5,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [_buildWelcome(textTheme), _buildLocation(textTheme)],
+                children: [
+                  _buildWelcome(textTheme, localization),
+                  _buildLocation(textTheme, localization),
+                ],
               ),
-              _buildThemeAndLang(textTheme),
+              _buildThemeAndLang(textTheme, localization),
             ],
           ),
           _buildCategories(context),
@@ -57,34 +61,34 @@ class HomeAppBar extends StatelessWidget {
 
   //Theme.of(context).colorScheme.inverseSurface,
   //
-  Row _buildLocation(TextTheme textTheme) {
+  Row _buildLocation(TextTheme textTheme, AppLocalizations localization) {
     return Row(
       children: [
         Icon(IconManager.locationOnOutlined, size: 25, color: Colors.white),
         Text(
-          TextManager.location,
+          localization.location,
           style: textTheme.bodyMedium!.copyWith(color: ColorManager.white),
         ),
       ],
     );
   }
 
-  Column _buildWelcome(TextTheme textTheme) {
+  Column _buildWelcome(TextTheme textTheme, AppLocalizations localization) {
     return Column(
       children: [
         Text(
-          TextManager.welcomeBack,
+          localization.welcomeBack,
           style: textTheme.bodySmall!.copyWith(color: ColorManager.white),
         ),
         Text(
-          TextManager.userName,
+          localization.userName,
           style: textTheme.titleLarge!.copyWith(color: ColorManager.white),
         ),
       ],
     );
   }
 
-  Row _buildThemeAndLang(TextTheme textTheme) {
+  Row _buildThemeAndLang(TextTheme textTheme, AppLocalizations localization) {
     return Row(
       children: [
         SvgPicture.asset(ImageIconManager.lightTheme, height: 25),
@@ -99,7 +103,7 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
           child: Text(
-            TextManager.en,
+            localization.en,
             style: textTheme.bodyLarge!.copyWith(color: ColorManager.primary),
           ),
         ),

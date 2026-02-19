@@ -7,7 +7,6 @@ ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
     backgroundColor: ColorManager.primary,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     textStyle: textThemeDark.titleSmall,
-    foregroundColor: ColorManager.white,
     side: BorderSide(color: ColorManager.primary),
   ),
 );

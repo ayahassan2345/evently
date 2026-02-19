@@ -1,155 +1,152 @@
+import 'package:evently/future/auth/register/cubit/register_cubit.dart';
+import 'package:evently/future/auth/register/cubit/register_state.dart';
+import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constant/functions/navigation.dart';
 import '../../../../core/constant/manager/icon_manager.dart';
 import '../../../../core/constant/manager/image_manager.dart';
-import '../../../../core/constant/manager/text_manager.dart';
-import '../../../../core/main/widgets/custom_animated_toggle_switch_lang.dart';
-import '../../../../core/main/widgets/main_button.dart';
-import '../../../../core/main/widgets/main_text_field.dart';
+import '../../../../core/widget/custom_animated_toggle_switch_lang.dart';
+import '../../../../core/widget/main_button.dart';
+import '../../../../core/widget/main_text_field.dart';
 import '../../auth_widget/validator_function.dart';
 import '../../login/screen/log_in.dart';
 import '../../../../core/constant/manager/color_manager.dart';
 import '../../auth_widget/have_account.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
+class Register extends StatelessWidget {
   const Register({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController nameController;
-  late TextEditingController emailController;
-  late TextEditingController passController;
-  late TextEditingController rePassController;
-  bool obscureText = true;
-  bool obscureTextRePass = true;
-
-  @override
-  void initState() {
-    nameController = TextEditingController();
-    emailController = TextEditingController();
-    passController = TextEditingController();
-    rePassController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passController.dispose();
-    rePassController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final TextEditingController passController = TextEditingController();
+    final TextEditingController rePassController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+    final localization = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          spacing: 12,
-          children: [
-            _buildLogo(),
-            _buildCustomTextField(),
-            _buildRegisterButton(context),
-            _buildHaveAcc(context),
-            CustomAnimatedToggleSwitchLang(),
-          ],
+      appBar: _buildAppBar(context),
+      body: BlocProvider(
+        create: (BuildContext context) {
+          return RegisterObscureTextCubit();
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            spacing: 12,
+            children: [
+              _buildLogo(),
+              _buildCustomTextField(
+                passController,
+                rePassController,
+                formKey,
+                localization,
+              ),
+              _buildRegisterButton(context, formKey, localization),
+              _buildHaveAcc(context, localization),
+              CustomAnimatedToggleSwitchLang(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Form _buildCustomTextField() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        spacing: 16,
-        children: [
-          MainTextField(
-            validator: userValidator,
-            hint: TextManager.userHint,
-            prefixIcon: ImageIconManager.nameIcon,
-          ),
-          MainTextField(
-            validator: emailValidator,
-            prefixIcon: ImageIconManager.emailIicon,
-            hint: TextManager.emailHint,
-          ),
-          MainTextField(
-            obscureText: obscureText,
-            controller: passController,
-            validator: passValidator,
-            prefixIcon: ImageIconManager.passIcon,
-            hint: TextManager.passHint,
-            suffixIcon: IconButton(
-              onPressed: () {
-                obscureText = !obscureText;
-                setState(() {});
-              },
-              icon: Icon(
-                obscureText
-                    ? IconManager.visibilityOff
-                    : IconManager.visibility,
+  Widget _buildCustomTextField(
+    TextEditingController passController,
+    TextEditingController rePassController,
+    GlobalKey<FormState> formKey,
+    AppLocalizations localization,
+  ) {
+    return BlocBuilder<RegisterObscureTextCubit, RegisterObscureTextState>(
+      builder: (context, state) {
+        final readCubit = context.read<RegisterObscureTextCubit>();
+        return Form(
+          key: formKey,
+          child: Column(
+            spacing: 16,
+            children: [
+              MainTextField(
+                validator: userValidator,
+                hint: localization.userHint,
+                prefixIcon: ImageIconManager.nameIcon,
               ),
-            ),
-          ),
-          MainTextField(
-            obscureText: obscureTextRePass,
-            controller: rePassController,
-            validator: (value) => rePassValidator(
-              passController: passController,
-              rePassController: rePassController,
-              value: value,
-            ),
-            prefixIcon: ImageIconManager.passIcon,
-            hint: TextManager.rePassHint,
-            suffixIcon: IconButton(
-              onPressed: () {
-                obscureText = !obscureText;
-                setState(() {});
-              },
-              icon: Icon(
-                obscureText
-                    ? IconManager.visibilityOff
-                    : IconManager.visibility,
+              MainTextField(
+                validator: emailValidator,
+                prefixIcon: ImageIconManager.emailIicon,
+                hint: localization.emailHint,
               ),
-            ),
+              MainTextField(
+                obscureText: state.obscureTextPass,
+                controller: passController,
+                validator: passValidator,
+                prefixIcon: ImageIconManager.passIcon,
+                hint: localization.passHint,
+                suffixIcon: IconButton(
+                  onPressed: readCubit.togglePassword,
+                  icon: Icon(
+                    state.obscureTextPass
+                        ? IconManager.visibilityOff
+                        : IconManager.visibility,
+                  ),
+                ),
+              ),
+              MainTextField(
+                obscureText: state.obscureTextRePass,
+                controller: rePassController,
+                validator: (value) => rePassValidator(
+                  passController: passController,
+                  rePassController: rePassController,
+                  value: value,
+                ),
+                prefixIcon: ImageIconManager.passIcon,
+                hint: localization.rePassHint,
+                suffixIcon: IconButton(
+                  onPressed: readCubit.toggleRePassword,
+                  icon: Icon(
+                    state.obscureTextRePass
+                        ? IconManager.visibilityOff
+                        : IconManager.visibility,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  HaveAccount _buildHaveAcc(BuildContext context) {
+  HaveAccount _buildHaveAcc(
+    BuildContext context,
+    AppLocalizations localization,
+  ) {
     return HaveAccount(
-      haveAcc: TextManager.haveAcc,
-      createAcc: TextManager.logIn,
+      haveAcc: localization.haveAcc,
+      createAcc: localization.logIn,
       onTap: () {
         pushReplacement(context, LogIn());
       },
     );
   }
 
-  MainButton _buildRegisterButton(BuildContext context) {
+  MainButton _buildRegisterButton(
+    BuildContext context,
+    GlobalKey<FormState> formKey,
+    AppLocalizations localization,
+  ) {
     return MainButton(
-      text: TextManager.createAcc,
+      text: localization.createAcc,
       onPressed: () {
-        _formKey.currentState!.validate()
+        formKey.currentState!.validate()
             ? pushReplacement(context, LogIn())
             : null;
       },
     );
   }
 
-  _buildLogo() => Image.asset(ImageManager.splashLogo);
+  Widget _buildLogo() => Image.asset(ImageManager.splashLogo);
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return AppBar(
       leading: IconButton(
@@ -160,7 +157,7 @@ class _RegisterState extends State<Register> {
         color: ColorManager.primary,
       ),
       title: Text(
-        TextManager.register,
+        AppLocalizations.of(context)!.register,
         style: textTheme.headlineLarge!.copyWith(color: ColorManager.primary),
       ),
       centerTitle: true,

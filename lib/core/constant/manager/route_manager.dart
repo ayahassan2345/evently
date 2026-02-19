@@ -6,7 +6,7 @@ import '../../../future/auth/register/screen/register.dart';
 import '../../../future/home/screen/home.dart';
 import '../../../future/intro/splash/splash.dart';
 import '../../../future/profile/screen/profile.dart';
-import '../../../future/main_layer/main_layer.dart';
+import '../../../future/main_layer/screen/main_layer.dart';
 import '../../../future/intro/on_boarding/screen/on_boarding.dart';
 import '../../../future/intro/start/start.dart';
 import '../../../future/search/screen/event_search.dart';

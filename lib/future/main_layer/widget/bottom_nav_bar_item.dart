@@ -1,7 +1,7 @@
-import '../../../core/constant/manager/image_manager.dart';
-import '../../../core/constant/manager/text_manager.dart';
-import 'package:flutter/material.dart';
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../core/constant/manager/image_manager.dart';
+import 'package:flutter/material.dart';
 
 class BottomNavigationBarItemModel {
   final String icon;
@@ -13,34 +13,38 @@ class BottomNavigationBarItemModel {
     required this.activeIcon,
     required this.label,
   });
+  BottomNavigationBarItem itemBottomNavigationBarItem() {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(icon),
+      activeIcon: SvgPicture.asset(activeIcon),
+      label: label,
+    );
+  }
+
 }
 
-List<BottomNavigationBarItemModel> itemModel = [
-  BottomNavigationBarItemModel(
-    icon: ImageIconManager.unselectedHome,
-    activeIcon: ImageIconManager.selectedHome,
-    label: TextManager.home,
-  ),
-  BottomNavigationBarItemModel(
-    icon: ImageIconManager.unselectedMap,
-    activeIcon: ImageIconManager.selectedMap,
-    label: TextManager.map,
-  ),
-  BottomNavigationBarItemModel(
-    icon: ImageIconManager.unselectedLove,
-    activeIcon: ImageIconManager.selectedLove,
-    label: TextManager.love,
-  ),
-  BottomNavigationBarItemModel(
-    icon: ImageIconManager.unselectedProfile,
-    activeIcon: ImageIconManager.selectedProfile,
-    label: TextManager.profile,
-  ),
-];
-List<BottomNavigationBarItem> items = itemModel.map((item) {
-  return BottomNavigationBarItem(
-    icon: SvgPicture.asset(item.icon),
-    activeIcon: SvgPicture.asset(item.activeIcon),
-    label: item.label,
-  );
-}).toList();
+List<BottomNavigationBarItemModel> itemModel(BuildContext context) {
+  final localization = AppLocalizations.of(context)!;
+  return [
+    BottomNavigationBarItemModel(
+      icon: ImageIconManager.unselectedHome,
+      activeIcon: ImageIconManager.selectedHome,
+      label: localization.home,
+    ),
+    BottomNavigationBarItemModel(
+      icon: ImageIconManager.unselectedMap,
+      activeIcon: ImageIconManager.selectedMap,
+      label: localization.map,
+    ),
+    BottomNavigationBarItemModel(
+      icon: ImageIconManager.unselectedLove,
+      activeIcon: ImageIconManager.selectedLove,
+      label: localization.love,
+    ),
+    BottomNavigationBarItemModel(
+      icon: ImageIconManager.unselectedProfile,
+      activeIcon: ImageIconManager.selectedProfile,
+      label: localization.profile,
+    ),
+  ];
+}

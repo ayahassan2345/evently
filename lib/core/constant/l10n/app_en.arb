@@ -1,0 +1,88 @@
+{
+  "@@locale": "en",
+
+  "starTilte": "Personalize Your Experience",
+  "startBody": "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
+  "letsStart": "Let’s Start",
+
+  "back": "Back",
+  "next": "Next",
+  "done": "Done",
+
+  "title1": "Find Events That Inspire You",
+  "body1": "Dive into a world of events crafted to fit your unique interests. Whether you're into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",
+
+  "title2": "Effortless Event Planning",
+  "body2": "Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we’ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.",
+
+  "title3": "Connect with Friends & Share Moments",
+  "body3": "Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.",
+
+  "userHint": "Name",
+  "emailHint": "Email",
+  "passHint": "Password",
+  "rePassHint": "Re-enter Password",
+  "createAcc": "Create Account",
+  "haveAcc": "Already Have Account?",
+  "logIn": "Login",
+  "register": "Register",
+
+  "dontHaveAcc": "Don’t Have Account?",
+  "or": "Or",
+  "googleLogin": "Login With Google",
+
+  "forgetPass": "Forgot Password?",
+  "resetPassword": "Reset Password",
+
+  "eventDetails": "Event Details",
+  "eventTitleDetails": "We Are Going To Play Football",
+  "time": "12:12 PM",
+  "date": "21 November 2024",
+
+  "addEvent": "Add Event",
+  "createEvent": "Create Event",
+  "hintTitle": "Create Event",
+  "eventDescriptionDetails": "Create Event",
+  "eventData": "Event Date",
+  "eventTime": "Event Time",
+  "chooseTime": "Choose Time",
+  "chooseDate": "Choose Date",
+  "location": "Location",
+  "chooseLocation": "Choose Event Location",
+  "descriptionHead": "Description",
+  "descriptionBody": "Lorem ipsum dolor sit amet consectetur. Vulputate eleifend suscipit eget neque senectus a. Nulla at non malesuada odio duis lectus amet nisi sit. Risus hac enim maecenas auctor et. At cras massa diam porta facilisi lacus purus. Iaculis eget quis ut amet. Sit ac malesuada nisi quis feugiat.",
+
+  "eventTitle": "Event Title",
+  "eventDescription": "Event Description",
+  "title": "Title",
+  "description": "Description",
+  "event": "We Are Going To Play Football",
+
+  "welcomeBack": "Welcome Back ✨",
+  "userName": "John Safwat",
+  "en": "EN",
+  "userLocation": "Cairo, Egypt",
+
+  "all": "All",
+  "sport": "Sport",
+  "birthday": "Birthday",
+  "meeting": "Meeting",
+
+  "cartTime": "21",
+  "cartDate": "Nov",
+  "cartTitle": "Meeting for Updating The Development Method",
+
+  "language": "Language",
+  "arabic": "Arabic",
+  "theme": "Theme",
+  "light": "Light",
+  "logout": "Logout",
+  "userEmail": "johnsafwat.route@gmail.com",
+
+  "searchEvent": "Search for Event",
+
+  "home": "Home",
+  "map": "Map",
+  "love": "Love",
+  "profile": "Profile"
+}

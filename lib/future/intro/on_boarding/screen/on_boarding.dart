@@ -1,7 +1,7 @@
 import 'package:evently/core/constant/functions/navigation.dart';
 import 'package:evently/future/auth/register/screen/register.dart';
-import 'package:evently/future/intro/on_boarding/cubit/cubit.dart';
-import 'package:evently/future/intro/on_boarding/cubit/state.dart';
+import 'package:evently/future/intro/on_boarding/cubit/on_boarding_cubit.dart';
+import 'package:evently/future/intro/on_boarding/cubit/on_boarding_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constant/manager/icon_manager.dart';
 import '../../../../core/constant/manager/color_manager.dart';
@@ -21,7 +21,7 @@ class OnBoarding extends StatelessWidget {
         create: (context) => IndicatorCubit(),
         child: BlocBuilder<IndicatorCubit, IndicatorState>(
           builder: (context, state) {
-            final IndicatorCubit readCubit = context.read<IndicatorCubit>();
+            final readCubit = context.read<IndicatorCubit>();
             return SafeArea(
               bottom: false,
               child: Padding(
@@ -31,7 +31,7 @@ class OnBoarding extends StatelessWidget {
                   children: [
                     _buildLogo(),
                     _buildPageView(context, controller, readCubit),
-                    _buildIndicator(context, controller, readCubit),
+                    _buildIndicator(context, controller, readCubit, state),
                   ],
                 ),
               ),
@@ -42,7 +42,7 @@ class OnBoarding extends StatelessWidget {
     );
   }
 
-  _buildPageView(
+  Widget _buildPageView(
     BuildContext context,
     PageController controller,
     IndicatorCubit readCubit,
@@ -52,9 +52,9 @@ class OnBoarding extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         controller: controller,
         onPageChanged: readCubit.onPageChanged,
-        itemCount: onBoardingModel.length,
+        itemCount: getOnBoardingModel(context).length,
         itemBuilder: (context, index) {
-          final model = onBoardingModel[index];
+          final model = getOnBoardingModel(context)[index];
           return _buildOnBoarding(model, context);
         },
       ),
@@ -67,6 +67,7 @@ class OnBoarding extends StatelessWidget {
     BuildContext context,
     PageController controller,
     IndicatorCubit readCubit,
+    IndicatorState state,
   ) {
     final IndicatorEffect effect = WormEffect(
       dotHeight: 8,
@@ -92,7 +93,7 @@ class OnBoarding extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Visibility(
-          visible: readCubit.state.currentPage != 0,
+          visible: state.currentPage != 0,
           child: IconButton(
             onPressed: onPreviousPage,
             icon: Icon(
@@ -104,12 +105,12 @@ class OnBoarding extends StatelessWidget {
         ),
         SmoothPageIndicator(
           controller: controller,
-          count: onBoardingModel.length,
+          count: getOnBoardingModel(context).length,
           effect: effect,
         ),
         IconButton(
           onPressed: () {
-            readCubit.lastPage()
+            readCubit.lastPage(context)
                 ? pushReplacement(context, Register())
                 : onNextPage();
           },

@@ -1,23 +1,26 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import '../../constant/manager/color_manager.dart';
-import '../../constant/manager/image_manager.dart';
+import '../constant/manager/color_manager.dart';
+import '../constant/manager/image_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CustomAnimatedToggleSwitchLang extends StatefulWidget {
-  const CustomAnimatedToggleSwitchLang({super.key});
+class CustomAnimatedToggleSwitchTheme extends StatefulWidget {
+  const CustomAnimatedToggleSwitchTheme({super.key});
 
   @override
-  State<CustomAnimatedToggleSwitchLang> createState() =>
-      _CustomAnimatedToggleSwitchLangState();
+  State<CustomAnimatedToggleSwitchTheme> createState() =>
+      _CustomAnimatedToggleSwitchThemeState();
 }
 
-class _CustomAnimatedToggleSwitchLangState
-    extends State<CustomAnimatedToggleSwitchLang> {
+class _CustomAnimatedToggleSwitchThemeState
+    extends State<CustomAnimatedToggleSwitchTheme> {
   int current = 0;
   @override
   Widget build(BuildContext context) {
-    final List<String> imageIcons = [ImageIconManager.ar, ImageIconManager.en];
+    final List<String> imageIcons = [
+      ImageIconManager.lightTheme,
+      ImageIconManager.darkTheme,
+    ];
     final ToggleStyle styleBuilder = ToggleStyle(
       backgroundColor: Theme.of(context).colorScheme.primary,
       borderRadius: BorderRadius.circular(30),
@@ -30,7 +33,15 @@ class _CustomAnimatedToggleSwitchLangState
     return AnimatedToggleSwitch<int>.size(
       onChanged: (i) => setState(() => current = i),
       iconBuilder: (value) {
-        return SvgPicture.asset(imageIcons[value], height: 20);
+        bool isSelected = value == current;
+        return SvgPicture.asset(
+          imageIcons[value],
+          height: 20,
+          colorFilter: ColorFilter.mode(
+            isSelected ? ColorManager.white : ColorManager.primary,
+            BlendMode.srcIn,
+          ),
+        );
       },
       styleBuilder: (i) => styleBuilder,
       current: current,

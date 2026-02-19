@@ -39,7 +39,7 @@ class MainTextField extends StatelessWidget {
                   width: 18,
                   fit: BoxFit.contain,
                   colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.background,
+                    Theme.of(context).colorScheme.surface,
                     BlendMode.srcIn,
                   ),
                 ),

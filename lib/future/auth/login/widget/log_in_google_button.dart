@@ -1,5 +1,5 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
 import '../../../../core/constant/manager/color_manager.dart';
-import '../../../../core/constant/manager/text_manager.dart';
 import '../../../../core/constant/manager/image_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +10,7 @@ class LogInGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+     final localization = AppLocalizations.of(context)!;
     return SizedBox(
       height: 57,
       child: ElevatedButton(
@@ -23,7 +24,7 @@ class LogInGoogleButton extends StatelessWidget {
             SvgPicture.asset(ImageIconManager.google),
             SizedBox(width: 5),
             Text(
-              TextManager.googleLogin,
+              localization.googleLogin,
               style: textTheme.titleSmall!.copyWith(
                 color: ColorManager.primary,
               ),

@@ -41,6 +41,10 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   animated_toggle_switch: ^0.8.7
   flutter_bloc: ^9.1.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +67,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true 
 
   # To add assets to your application, add an assets section, like this:
   assets:

@@ -1,5 +1,6 @@
+import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:flutter/widgets.dart';
 import '../../../core/constant/manager/image_manager.dart';
-import '../../../core/constant/manager/text_manager.dart';
 
 class CartModel {
   final String cartImage;
@@ -15,29 +16,32 @@ class CartModel {
   });
 }
 
-List<CartModel> cartModel = [
-  CartModel(
-    cartImage: ImageManager.bookClub,
-    cartMonth: TextManager.cartDate,
-    cartDay: TextManager.cartTime,
-    carttitle: TextManager.cartTitle,
-  ),
-  CartModel(
-    cartImage: ImageManager.bookClub,
-    cartMonth: TextManager.cartDate,
-    cartDay: TextManager.cartTime,
-    carttitle: TextManager.cartTitle,
-  ),
-  CartModel(
-    cartImage: ImageManager.bookClub,
-    cartMonth: TextManager.cartDate,
-    cartDay: TextManager.cartTime,
-    carttitle: TextManager.cartTitle,
-  ),
-  CartModel(
-    cartImage: ImageManager.bookClub,
-    cartMonth: TextManager.cartDate,
-    cartDay: TextManager.cartTime,
-    carttitle: TextManager.cartTitle,
-  ),
-];
+List<CartModel> getCartModel(BuildContext context) {
+  final localization = AppLocalizations.of(context)!;
+  return [
+    CartModel(
+      cartImage: ImageManager.bookClub,
+      cartMonth: localization.cartDate,
+      cartDay: localization.cartTime,
+      carttitle: localization.cartTitle,
+    ),
+    CartModel(
+      cartImage: ImageManager.bookClub,
+      cartMonth: localization.cartDate,
+      cartDay: localization.cartTime,
+      carttitle: localization.cartTitle,
+    ),
+    CartModel(
+      cartImage: ImageManager.bookClub,
+      cartMonth: localization.cartDate,
+      cartDay: localization.cartTime,
+      carttitle: localization.cartTitle,
+    ),
+    CartModel(
+      cartImage: ImageManager.bookClub,
+      cartMonth: localization.cartDate,
+      cartDay: localization.cartTime,
+      carttitle: localization.cartTitle,
+    ),
+  ];
+}
