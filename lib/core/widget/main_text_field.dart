@@ -2,16 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainTextField extends StatelessWidget {
-  const MainTextField({
-    super.key,
-    this.prefixIcon,
-    this.suffixIcon,
-    required this.hint,
-    this.validator,
-    this.controller,
-    this.obscureText,
-    this.maxLines,
-  });
+  final void Function(String)? onChanged;
   final String? prefixIcon;
   final Widget? suffixIcon;
   final String hint;
@@ -19,10 +10,22 @@ class MainTextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? obscureText;
   final int? maxLines;
+  const MainTextField({
+    this.onChanged,
+    super.key,
+    this.prefixIcon,
+    this.suffixIcon,
+    required this.hint,
+    this.validator,
+   this.controller,
+    this.obscureText,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       obscureText: obscureText ?? false,
       controller: controller,
       validator: validator,

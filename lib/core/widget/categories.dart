@@ -1,5 +1,7 @@
 import 'package:evently/core/constant/manager/color_manager.dart';
-
+import 'package:evently/future/create_event/cubit/create_event_cubit.dart';
+import 'package:evently/future/create_event/cubit/create_event_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../model/categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,23 +33,28 @@ class CategoriesState extends State<Categories> {
   int isSelected = 0;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) {
-          return SizedBox(width: 10);
-        },
-        itemCount: getCategoriesModel(context: context).length,
-        itemBuilder: (context, index) {
-          final model = getCategoriesModel(context: context)[index];
-          return _buildCategories(index, model);
-        },
+    return BlocProvider(
+      create: (context) {
+        return CreateEventCubit();
+      },
+      child: SizedBox(
+        height: 40,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (context, index) {
+            return SizedBox(width: 10);
+          },
+          itemCount: getCategoriesModel(context: context).length,
+          itemBuilder: (context, index) {
+            final model = getCategoriesModel(context: context)[index];
+            return _buildCategories(index, model);
+          },
+        ),
       ),
     );
   }
 
-  InkWell _buildCategories(int index, CategoriesModel model) {
+  Widget _buildCategories(int index, CategoriesModel model) {
     final BoxDecoration decoration = BoxDecoration(
       color: isSelected == index
           ? widget.selectedBgColor
@@ -55,34 +62,48 @@ class CategoriesState extends State<Categories> {
       borderRadius: BorderRadius.circular(46),
       border: BoxBorder.all(color: widget.borderColor, width: 1.5),
     );
-    return InkWell(
-      onTap: () => setState(() => isSelected = index),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: decoration,
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              model.categoryIcon,
-              colorFilter: ColorFilter.mode(
-                isSelected == index
-                    ? widget.selectedIconColor
-                    : widget.unSelectedIconColor ?? ColorManager.white,
-                BlendMode.srcIn,
-              ),
+    return BlocBuilder<CreateEventCubit, CreateEventState>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: () {
+            setState(() {
+              isSelected = index;
+            });
+            var selectedCategoryModel = getCategoriesModel(
+              context: context,
+            )[index];
+            context.read<CreateEventCubit>().selectedEventName(
+              selectedCategoryModel,
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: decoration,
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  model.categoryIcon,
+                  colorFilter: ColorFilter.mode(
+                    isSelected == index
+                        ? widget.selectedIconColor
+                        : widget.unSelectedIconColor ?? ColorManager.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                SizedBox(width: 4),
+                Text(
+                  model.categoryName,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    color: isSelected == index
+                        ? widget.selectedTextColor
+                        : widget.unSelectedTextColor ?? ColorManager.white,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(width: 4),
-            Text(
-              model.categoryName,
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: isSelected == index
-                    ? widget.selectedTextColor
-                    : widget.unSelectedTextColor ?? ColorManager.white,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

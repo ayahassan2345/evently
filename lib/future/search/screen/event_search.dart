@@ -2,8 +2,8 @@ import '../../../core/widget/event_cart.dart';
 import '../widget/search_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-class EventSearch extends StatelessWidget {
-  const EventSearch({super.key});
+class Search extends StatelessWidget {
+  const Search({super.key});
 
   @override
   Widget build(BuildContext context) {

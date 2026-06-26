@@ -1,7 +1,7 @@
-import 'package:evently/future/profile/widget/selected_language.dart';
-import '../widget/profile_button.dart';
-import '../widget/profile_app_bar.dart';
-import '../widget/select_theme.dart';
+import 'package:evently/future/profile/widget/profile_app_bar.dart';
+import 'package:evently/future/profile/widget/profile_button.dart';
+import 'package:evently/future/profile/widget/theme_widget.dart';
+import 'package:evently/future/profile/widget/language_widget.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -21,8 +21,8 @@ class Profile extends StatelessWidget {
               child: Column(
                 spacing: 10,
                 children: [
-                  SelectedTheme(),
-                  SelectedLanguage(),
+                  ThemeWidget(),
+                  LanguageWidget(),
                   Spacer(),
                   _buildLogoutButton(),
                 ],

@@ -2,15 +2,17 @@ import '../../../core/constant/manager/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class EventDateAndTime extends StatelessWidget {
+  final String dataAndTime;
+  final String chooseDateAndTime;
+  final IconData icon;
+  final void Function()? onPressed;
   const EventDateAndTime({
     super.key,
     required this.dataAndTime,
     required this.chooseDateAndTime,
     required this.icon,
+    required this.onPressed,
   });
-  final String dataAndTime;
-  final String chooseDateAndTime;
-  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class EventDateAndTime extends StatelessWidget {
         Text(dataAndTime, style: textTheme.headlineSmall),
         Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: onPressed,
           child: Text(
             chooseDateAndTime,
             style: textTheme.headlineSmall!.copyWith(

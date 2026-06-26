@@ -4,9 +4,15 @@ import '../../../core/constant/manager/image_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SearchTextFormField extends StatelessWidget {
+class SearchTextFormField extends StatefulWidget {
   const SearchTextFormField({super.key});
 
+  @override
+  State<SearchTextFormField> createState() => _SearchTextFormFieldState();
+}
+
+class _SearchTextFormFieldState extends State<SearchTextFormField> {
+  
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;

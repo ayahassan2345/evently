@@ -1,4 +1,4 @@
-const String base = 'images';
+const String base = 'assets/images';
 
 class ImageManager {
   // splash
@@ -22,6 +22,18 @@ class ImageManager {
 
   //home
   static const String bookClub = '$base/home_cart/book_club.png';
+
+  //home cart
+  static const String homeCart = '$base/home_cart';
+  static const String club_0 = '$homeCart/club_0.png';
+  static const String club_1 = '$homeCart/club_1.png';
+  static const String club_2 = '$homeCart/club_2.png';
+  static const String club_3 = '$homeCart/club_3.png';
+  static const String club_4 = '$homeCart/club_4.png';
+  static const String club_5 = '$homeCart/club_5.png';
+  static const String club_6 = '$homeCart/club_6.png';
+  static const String club_7 = '$homeCart/club_7.png';
+  static const String club_8 = '$homeCart/club_8.png';
 
   //profile
   static const String route = '$base/profile/route.jpg';

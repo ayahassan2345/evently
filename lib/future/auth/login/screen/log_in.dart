@@ -1,4 +1,5 @@
 import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:evently/core/firebase_create_account.dart';
 import 'package:evently/future/auth/login/cubit/login_cubit.dart';
 import 'package:evently/future/auth/login/cubit/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,41 +16,49 @@ import '../../register/screen/register.dart';
 import '../widget/custom_divider.dart';
 import '../../auth_widget/have_account.dart';
 import '../../../../core/constant/manager/color_manager.dart';
-import '../../../main_layer/screen/main_layer.dart';
 import 'package:flutter/material.dart';
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
+  @override
+  State<LogIn> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final localization = AppLocalizations.of(context)!;
-    final formKey = GlobalKey<FormState>();
-    final passController = TextEditingController();
+
     return Scaffold(
       body: BlocProvider(
         create: (context) => LoginObscureTextCubit(),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              spacing: 24,
-              children: [
-                _buildLogo(),
-                _buildCustomTextField(
-                  formKey,
-                  context,
-                  textTheme,
-                  passController,
-                  localization,
-                ),
-                _buildLoginButton(context, formKey, localization),
-                _buildHaveAcc(context, localization),
-                _buildDivider(textTheme, localization),
-                LogInGoogleButton(),
-                CustomAnimatedToggleSwitchLang(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                spacing: 24,
+                children: [
+                  _buildLogo(),
+                  _buildCustomTextField(
+                    formKey,
+                    context,
+                    textTheme,
+                    passController,
+                    localization,
+                  ),
+                  _buildLoginButton(context, formKey, localization),
+                  _buildHaveAcc(context, localization),
+                  _buildDivider(textTheme, localization),
+                  LogInGoogleButton(),
+                  CustomAnimatedToggleSwitchLang(),
+                ],
+              ),
             ),
           ),
         ),
@@ -78,9 +87,12 @@ class LogIn extends StatelessWidget {
     return MainButton(
       text: localization.logIn,
       onPressed: () {
-        formKey.currentState!.validate()
-            ? pushReplacement(context, MainLayer())
-            : null;
+        // formKey.currentState!.validate();
+        FirebaseServices.firebaseSignIn(
+          context: context,
+          emailController: emailController,
+          passController: passController,
+        );
       },
     );
   }
@@ -117,6 +129,7 @@ class LogIn extends StatelessWidget {
             validator: emailValidator,
             prefixIcon: ImageIconManager.emailIicon,
             hint: localization.emailHint,
+            controller: emailController,
           ),
           BlocBuilder<LoginObscureTextCubit, LoginObscureTextState>(
             builder: (context, state) {

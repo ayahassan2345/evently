@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String? userValidator(value) {
+String? nameValidator(value) {
   RegExp usernameRegEx = RegExp(r'^[a-zA-Z][a-zA-Z0-9_.]{2,19}$');
   if (value == null || value.trim().isEmpty) {
     return 'this filed is required';

@@ -1,4 +1,5 @@
 import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:evently/core/services/shared_prefs.dart';
 import '../../../core/constant/manager/icon_manager.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,9 @@ class LogoutButton extends StatelessWidget {
     return SizedBox(
       height: 56,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          SharedPrefs.clearData();
+        },
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor: Color(0XFFFF5659),

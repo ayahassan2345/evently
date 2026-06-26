@@ -1,3 +1,4 @@
+import 'package:evently/core/firebase_create_account.dart';
 import 'package:evently/future/auth/register/cubit/register_cubit.dart';
 import 'package:evently/future/auth/register/cubit/register_state.dart';
 import 'package:evently/core/constant/l10n/app_localizations.dart';
@@ -14,13 +15,20 @@ import '../../../../core/constant/manager/color_manager.dart';
 import '../../auth_widget/have_account.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
 
   @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController rePassController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController passController = TextEditingController();
-    final TextEditingController rePassController = TextEditingController();
     final formKey = GlobalKey<FormState>();
     final localization = AppLocalizations.of(context)!;
     return Scaffold(
@@ -29,34 +37,36 @@ class Register extends StatelessWidget {
         create: (BuildContext context) {
           return RegisterObscureTextCubit();
         },
+
+        ///asfgvf
+        ///kasfhvf@gmail.com
+        ///W90909090we@@vf
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            spacing: 12,
-            children: [
-              _buildLogo(),
-              _buildCustomTextField(
-                passController,
-                rePassController,
-                formKey,
-                localization,
-              ),
-              _buildRegisterButton(context, formKey, localization),
-              _buildHaveAcc(context, localization),
-              CustomAnimatedToggleSwitchLang(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 12,
+              children: [
+                _buildLogo(),
+                _buildCustomTextField(
+                  formKey: formKey,
+                  localization: localization,
+                ),
+                _buildRegisterButton(context, formKey, localization),
+                _buildHaveAcc(context, localization),
+                CustomAnimatedToggleSwitchLang(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCustomTextField(
-    TextEditingController passController,
-    TextEditingController rePassController,
-    GlobalKey<FormState> formKey,
-    AppLocalizations localization,
-  ) {
+  Widget _buildCustomTextField({
+    required GlobalKey<FormState> formKey,
+    required AppLocalizations localization,
+  }) {
     return BlocBuilder<RegisterObscureTextCubit, RegisterObscureTextState>(
       builder: (context, state) {
         final readCubit = context.read<RegisterObscureTextCubit>();
@@ -66,11 +76,13 @@ class Register extends StatelessWidget {
             spacing: 16,
             children: [
               MainTextField(
-                validator: userValidator,
+                validator: nameValidator,
                 hint: localization.userHint,
                 prefixIcon: ImageIconManager.nameIcon,
+                controller: nameController,
               ),
               MainTextField(
+                controller: emailController,
                 validator: emailValidator,
                 prefixIcon: ImageIconManager.emailIicon,
                 hint: localization.emailHint,
@@ -137,9 +149,16 @@ class Register extends StatelessWidget {
     return MainButton(
       text: localization.createAcc,
       onPressed: () {
-        formKey.currentState!.validate()
-            ? pushReplacement(context, LogIn())
-            : null;
+        if (formKey.currentState!.validate()) {
+          FirebaseServices.firebaseCreateAccount(
+            nameController: nameController,
+            context: context,
+            emailController: emailController,
+            passController: passController,
+          );
+        } else {
+          return;
+        }
       },
     );
   }

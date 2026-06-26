@@ -1,14 +1,18 @@
-import 'package:evently/core/constant/enums/app_theme.dart';
-import 'package:evently/core/theme_cubit/theme_cubit.dart';
-import 'package:evently/core/theme_cubit/theme_state.dart';
+import 'package:evently/core/config/bloc/theme_lang_cubit.dart';
+import 'package:evently/core/config/bloc/theme_lang_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constant/manager/icon_manager.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class SelectedTheme extends StatelessWidget {
-  const SelectedTheme({super.key});
+class ThemeWidget extends StatefulWidget {
+  const ThemeWidget({super.key});
 
+  @override
+  State<ThemeWidget> createState() => _ThemeWidgetState();
+}
+
+class _ThemeWidgetState extends State<ThemeWidget> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.titleMedium!;
@@ -23,16 +27,17 @@ class SelectedTheme extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: ColorManager.primary, width: 2),
           ),
-          child: BlocBuilder<ThemeCubit, ThemeState>(
+          child: BlocBuilder<ThemeLangCubit, ThemeLangState>(
             builder: (context, state) {
+              var cubit = context.read<ThemeLangCubit>();
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    state.selectedValue.name,
+                    cubit.selectedTheme.name,
                     style: style.copyWith(color: ColorManager.primary),
                   ),
-                  _buildDropDown(context: context, state: state),
+                  _buildDropDown(context: context, cubit: cubit),
                 ],
               );
             },
@@ -44,16 +49,16 @@ class SelectedTheme extends StatelessWidget {
 
   DropdownButton<dynamic> _buildDropDown({
     required BuildContext context,
-    required ThemeState state,
+    required ThemeLangCubit cubit,
   }) {
-    List<AppTheme> items = [AppTheme.light, AppTheme.dark];
+    List<ThemeMode> items = [ThemeMode.light, ThemeMode.dark, ThemeMode.system];
     return DropdownButton(
-      value: state.selectedValue,
+      value: cubit.selectedTheme,
       items: items.map((item) {
         return DropdownMenuItem(value: item, child: Text(item.name));
       }).toList(),
       onChanged: (value) {
-        context.read<ThemeCubit>().getTheme(value);
+        context.read<ThemeLangCubit>().onChangeTheme(value: value);
       },
       borderRadius: BorderRadius.circular(8),
       dropdownColor: Theme.of(context).colorScheme.primary,

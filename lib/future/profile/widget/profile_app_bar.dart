@@ -1,11 +1,25 @@
 import 'package:evently/core/constant/l10n/app_localizations.dart';
+import 'package:evently/core/services/shared_prefs.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import '../../../core/constant/manager/image_manager.dart';
 import '../../../core/constant/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
-class ProfileAppBar extends StatelessWidget {
+class ProfileAppBar extends StatefulWidget {
   const ProfileAppBar({super.key});
+
+  @override
+  State<ProfileAppBar> createState() => _ProfileAppBarState();
+}
+
+class _ProfileAppBarState extends State<ProfileAppBar> {
+  Map<String, String>? data;
+
+  @override
+  void initState() {
+    data = SharedPrefs.getProfileUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +28,7 @@ class ProfileAppBar extends StatelessWidget {
       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64)),
     );
     // final textTheme = Theme.of(context).textTheme;
-    final localization = AppLocalizations.of(context)!;
+    // final localization = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.only(bottom: 16, left: 16, right: 16, top: 40),
       width: double.infinity,
@@ -35,11 +49,8 @@ class ProfileAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(localization.userName, style: textThemeDark.titleLarge),
-                Text(
-                  localization.userEmail,
-                  style: textThemeDark.headlineSmall,
-                ),
+                Text(data?['userName'] ?? '', style: textThemeDark.titleLarge),
+                Text(data?['email'] ?? '', style: textThemeDark.headlineSmall),
               ],
             ),
           ),

@@ -1,3 +1,5 @@
+import 'package:evently/future/search/screen/event_search.dart';
+
 import '../../../future/event_detail/event_detail.dart';
 import '../../../future/create_event/screen/create_event.dart';
 import '../../../future/auth/login/screen/log_in.dart';
@@ -9,7 +11,6 @@ import '../../../future/profile/screen/profile.dart';
 import '../../../future/main_layer/screen/main_layer.dart';
 import '../../../future/intro/on_boarding/screen/on_boarding.dart';
 import '../../../future/intro/start/start.dart';
-import '../../../future/search/screen/event_search.dart';
 import 'package:flutter/material.dart';
 
 class RouteManager {
@@ -25,6 +26,6 @@ class RouteManager {
     'create_event': (BuildContext context) => CreateEvent(),
     'event_detail': (BuildContext context) => EventDetail(),
     'main_layer': (BuildContext context) => MainLayer(),
-    'search': (BuildContext context) => EventSearch(),
+    'search': (BuildContext context) => Search(),
   };
 }
