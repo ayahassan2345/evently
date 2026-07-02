@@ -10,7 +10,10 @@ class MainButton extends StatelessWidget {
     return SizedBox(
       height: 56,
       width: double.infinity,
-      child: ElevatedButton(onPressed: onPressed, child: Text(text)),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(text, style: TextStyle(color: Colors.white)),
+      ),
     );
   }
 }

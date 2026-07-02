@@ -28,6 +28,6 @@ class ThemeLangCubit extends Cubit<ThemeLangState> {
   }
 
   String? getAppLanguage() {
-    return getAppLanguage() ?? AppLanguage.en.name;
+    return SharedPrefs.getAppLanguage() ?? AppLanguage.en.name;
   }
 }

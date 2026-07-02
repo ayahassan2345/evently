@@ -15,7 +15,7 @@ void showSnackBarExeption(BuildContext context, String contentMsg) {
   );
 }
 
-showLoadingDialog(BuildContext context) {
+void showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {

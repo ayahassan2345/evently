@@ -1,4 +1,3 @@
-import 'package:evently/core/constant/l10n/app_localizations.dart';
 import 'package:evently/core/services/shared_prefs.dart';
 import '../../../core/constant/manager/color_manager.dart';
 import '../../../core/constant/manager/image_manager.dart';

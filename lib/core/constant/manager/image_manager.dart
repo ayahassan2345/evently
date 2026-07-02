@@ -75,11 +75,10 @@ class ImageIconManager {
   static const String addEvent = '$base/add_event.svg';
 
   //categories
-  static const String categories = '$base/home/categories';
-  static const String all = '$categories/all.svg';
-  static const String sport = '$categories/sport.svg';
-  static const String birethday = '$categories/birethday.svg';
-  static const String book = '$categories/book.svg';
+  static const String all = '$base/home/all.svg';
+  static const String sport = '$base/home/sport.svg';
+  static const String birethday = '$base/home/birethday.svg';
+  static const String book = '$base/home/book.svg';
 
   //create event
   static const String editNote = '$base/create_event/edit_note.svg';

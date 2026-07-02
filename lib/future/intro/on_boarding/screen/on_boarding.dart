@@ -1,5 +1,5 @@
 import 'package:evently/core/constant/functions/navigation.dart';
-import 'package:evently/future/auth/register/screen/register.dart';
+import 'package:evently/future/auth/presentation/screen/register/screen/register.dart';
 import 'package:evently/future/intro/on_boarding/cubit/on_boarding_cubit.dart';
 import 'package:evently/future/intro/on_boarding/cubit/on_boarding_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

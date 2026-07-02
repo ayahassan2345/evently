@@ -1,9 +1,9 @@
-import 'package:evently/future/home/cubit/event_cart_cubit.dart';
-import 'package:evently/future/home/cubit/event_cart_state.dart';
+import 'package:evently/home/presentation/cubit/event_cart_cubit.dart';
+import 'package:evently/home/presentation/cubit/event_cart_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../constant/manager/color_manager.dart';
 import '../constant/manager/image_manager.dart';
-import '../../future/home/model/cart_model.dart';
+import '../../home/data/model/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

@@ -2,8 +2,8 @@ import '../constant/manager/icon_manager.dart';
 import '../constant/manager/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class ChooseEventLocation extends StatelessWidget {
-  const ChooseEventLocation({super.key, required this.location});
+class Location extends StatelessWidget {
+  const Location({super.key, required this.location});
   final String location;
 
   @override

@@ -27,7 +27,7 @@ class EventDetail extends StatelessWidget {
               _buildEventDetailsImage(),
               _buildEventDetailsTitle(textTheme, localization),
               EventDate(),
-              ChooseEventLocation(location: localization.userLocation),
+              Location(location: localization.userLocation),
               CustomMap(),
               Description(),
             ],

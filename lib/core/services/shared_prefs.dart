@@ -14,12 +14,18 @@ class SharedPrefs {
     prefs.clear();
   }
 
-  static void setProfileUserData({
+  static void setUserData({
+    required String uid,
     required String email,
     required String userName,
   }) {
+    prefs.setString('uid', uid);
     prefs.setString('email', email);
     prefs.setString('userName', userName);
+  }
+
+  static String getUserid() {
+    return prefs.getString('uid') ?? '';
   }
 
   static Map<String, String>? getProfileUserData() {
@@ -56,7 +62,7 @@ class SharedPrefs {
     prefs.setString('lang_key', language);
   }
 
-  static String getAppLanguage() {
+  static String? getAppLanguage() {
     return prefs.getString('lang_key') ?? AppLanguage.en.name;
   }
 }

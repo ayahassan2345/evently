@@ -31,7 +31,7 @@ class Evently extends StatelessWidget {
           var cubit = context.read<ThemeLangCubit>();
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: 'main_layer',
+            initialRoute: 'register',
             routes: RouteManager.routes,
             theme: lightTheme,
             darkTheme: darkTheme,
